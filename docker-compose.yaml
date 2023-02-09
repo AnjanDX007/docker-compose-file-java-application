@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testtable
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+  app:
+    image: openjdk:11-jdk-slim
+    volumes:
+      - ./spring-boot-crud-example-0.0.1-SNAPSHOT.jar:/app/my-app.jar
+    working_dir: /app
+    command: java -jar my-app.jar
+    ports:
+      - 9191:9191
+    depends_on:
+      - db
